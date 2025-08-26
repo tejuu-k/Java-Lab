@@ -36,6 +36,12 @@ public class Encapsulation{
  }
 }
 
+OUTPUT:
+Account Holder: Keerthana
+Balance: 1000.0
+Deposited: 500.0
+Updated Balance: 1500.0
+
 
 
 
