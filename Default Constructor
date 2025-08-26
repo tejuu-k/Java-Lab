@@ -16,3 +16,8 @@ public class todayy {
   }
 
 }
+
+OUTPUT:
+default constructor
+Name: John Doe
+Age: 24
