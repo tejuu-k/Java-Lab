@@ -1,0 +1,21 @@
+package Com.r9;
+
+public class Conditional {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+      int a=3;
+      int b=5;
+      if(a>b)
+        {
+    	  System.out.println("a is greater than b");
+        }
+      else if(a<b)
+      {
+    	  System.out.println(" a is less than b");
+      }
+	}
+
+}
+OUTPUT:
+ a is less than b
