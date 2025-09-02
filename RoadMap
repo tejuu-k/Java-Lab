@@ -1,0 +1,33 @@
+package Com.r9;
+public class RoadMap {
+	public static void main(String[]args) {
+		String studentName="Tej";
+		String[] roadMap= {
+				"1st Year:Master Program Fundamentals",
+				"2nd Year:Explore on AI",
+				"3rd year:Internship in Tech company",
+				"4th Year:Having a Good Innovative Projects in Hand",
+				"After Btech:Job in Tech Company/Plan For Higher studies(MS,Mtech,MBA)"
+		};
+		System.out.println("----------------");
+		System.out.println(" CARER ROAD MAP ");
+		System.out.println("----------------");
+		System.out.println("Student Name:"+studentName);
+		
+		for(String step:roadMap) {
+			System.out.println("=>"+step);
+		}
+	}
+}
+OUTPUT :
+----------------
+ CARER ROAD MAP 
+----------------
+Student Name:Tej
+=>1st Year:Master Program Fundamentals
+=>2nd Year:Explore on AI
+=>3rd year:Internship in Tech company
+=>4th Year:Having a Good Innovative Projects in Hand
+=>After Btech:Job in Tech Company/Plan For Higher studies(MS,Mtech,MBA)
+
+
