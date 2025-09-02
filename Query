@@ -1,0 +1,16 @@
+package Com.r9;
+public class Query {
+	public static void main(String[]args) {
+			
+				// TODO Auto-generated method stub
+				boolean examTomorrow=true;
+				if(examTomorrow) {
+					System.out.println("Go To Study........!");
+				}else {
+					System.out.println("Enjoy The Netflix......!!!");
+				}
+			}
+		}
+
+OUTPUT:
+Go To Study........!
