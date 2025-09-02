@@ -1,0 +1,37 @@
+package Com.r9; //super keyword
+//Grandparent class
+class Animal {
+   Animal() {
+	 //super();
+     System.out.println("This animal eats food.");
+ }
+}
+//Parent class (inherits Animal)
+class Dog extends Animal {
+  Dog() {
+	 super();
+     System.out.println("The dog barks.");
+ }
+}
+//Child class (inherits Dog)
+class Puppy extends Dog {
+   Puppy() {
+	 super();
+     System.out.println("The puppy is weeping.");
+ }
+}
+//Main class
+public class MultilevelInheritanceExample {//for super keyword
+    public static void main(String[] args) {
+     // Create object of Puppy
+     Puppy p = new Puppy();
+ }
+}
+ OUTPUT:
+This animal eats food.
+The dog barks.
+The puppy is weeping.
+
+
+
+OUT
