@@ -1,0 +1,49 @@
+//polymorphism//overriding//polymorphism can be done only with same return type
+package Com.r9;
+class RBI{
+	public double getRateOfInterest() {
+		return 5.0;
+	}
+}
+class SBI extends RBI{
+	public double getRateOfInterest() {
+		return 6.5;
+	}
+}
+class ICICI extends RBI{
+	public double getRateOfInterest() {
+		return 7.5;
+	}
+}
+public class Bank {
+	public static void main(String[] args) {
+		RBI r=new RBI();
+		RBI r1=new SBI();//upcasting
+		SBI s=new SBI();
+		ICICI i= new ICICI();
+		System.out.println("RBI rate of interest"+r.getRateOfInterest());
+		System.out.println("SBI rate of interest"+s.getRateOfInterest());
+		System.out.println("ICICI rate of interest"+i.getRateOfInterest());
+		System.out.println("New SBI rate of interest"+r1.getRateOfInterest());
+	}
+
+}
+
+OUTPUT:
+RBI rate of interest5.0
+SBI rate of interest6.5
+ICICI rate of interest7.5
+New SBI rate of interest6.5
+
+
+
+
+
+
+
+
+
+
+
+
+
