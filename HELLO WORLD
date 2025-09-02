@@ -1,0 +1,9 @@
+package Com.r9;
+public class Hello {
+	public static void main(String[]args) {
+		System.out.println("Helllo!World.");
+	}
+}
+
+OUTPUT:
+Helllo!World.
