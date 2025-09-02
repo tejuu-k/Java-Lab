@@ -1,0 +1,44 @@
+package Com.r9;
+public class Operations {
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+       float a=3;
+       float b=7;
+       System.out.println("a=  "+a);
+       System.out.println("b=  "+b);
+       System.out.println("add:  "+(a+b));
+       System.out.println("subtract:  "+(a-b));
+       System.out.println("multiply:  "+(a*b));
+       System.out.println("division:  "+(a/b));
+       System.out.println("modulus division:  "+(a%b));
+       System.out.println("unary minus:  "+(--a));
+       System.out.println("unary plus:  "+(++a));
+       float c=1;
+       float d=2;
+       System.out.println("c:  "+(c));
+       System.out.println("d:  "+(d));
+       System.out.println("c+=a:  "+(c+=a));
+       System.out.println("d-=b:  "+(d-=b));
+       System.out.println("c*=a:  "+(c*=a));
+       System.out.println("d/=b:  "+(d/=b));
+       System.out.println("c%=d:  "+(c%=d));
+       }
+}
+OUTPUT:
+a=  3.0
+b=  7.0
+add:  10.0
+subtract:  -4.0
+multiply:  21.0
+division:  0.42857143
+modulus division:  3.0
+unary minus:  2.0
+unary plus:  3.0
+c:  1.0
+d:  2.0
+c+=a:  4.0
+d-=b:  -5.0
+c*=a:  12.0
+d/=b:  -0.71428573
+c%=d:  0.5714283
+
