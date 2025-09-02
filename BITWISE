@@ -1,0 +1,28 @@
+package Com.r9;
+public class BitwiseDemo {
+    public static void main(String[] args) {
+        int a = 5;  // binary: 0101
+        int b = 3;  // binary: 0011
+
+        System.out.println("a = " + a + " (" + Integer.toBinaryString(a) + ")");
+        System.out.println("b = " + b + " (" + Integer.toBinaryString(b) + ")");
+
+        System.out.println("a & b = " + (a & b) + " (" + Integer.toBinaryString(a & b) + ")");  // AND
+        System.out.println("a | b = " + (a | b) + " (" + Integer.toBinaryString(a | b) + ")");  // OR
+        System.out.println("a ^ b = " + (a ^ b) + " (" + Integer.toBinaryString(a ^ b) + ")");  // XOR
+        System.out.println("~a = " + (~a) + " (" + Integer.toBinaryString(~a) + ")");           // NOT
+        System.out.println("a << 1 = " + (a << 1) + " (" + Integer.toBinaryString(a << 1) + ")");  // left shift
+        System.out.println("a >> 1 = " + (a >> 1) + " (" + Integer.toBinaryString(a >> 1) + ")");  // right shift
+    }
+}
+
+
+OUTPUT:
+a = 5 (101)
+b = 3 (11)
+a & b = 1 (1)
+a | b = 7 (111)
+a ^ b = 6 (110)
+~a = -6 (11111111111111111111111111111010)
+a << 1 = 10 (1010)
+a >> 1 = 2 (10)
