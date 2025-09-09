@@ -1,0 +1,18 @@
+package Com.r9;
+public class DuplicateElements {
+	public static void main(String[] args) {
+		        int[] arr = {1, 5, 3, 2, 5, 7, 3, 9};
+		        System.out.println("Duplicate elements are:");
+		        for (int i = 0; i < arr.length; i++) {
+		            for (int j = i + 1; j < arr.length; j++) {
+		                if (arr[i] == arr[j]) {  // check duplicate
+		                    System.out.println(arr[i]);
+		                }
+		            }
+		        }
+		    }
+		}
+OUTPUT:
+Duplicate elements are:
+5
+3
