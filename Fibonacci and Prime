@@ -1,0 +1,38 @@
+package Com.r9;
+import java.util.Scanner;
+public class FibonacciPrime {
+		public static void main(String[] args) {
+			Scanner sc=new Scanner(System.in);
+			System.out.println("enter the size :");
+			int n=sc.nextInt();
+			int a=0;
+			int b=1;
+			int c=0;
+			for(int i=0;i<n;i++) {
+				c=a+b;
+				a=b;
+				b=c;
+				int count=0;
+				if(c<=n && c!=1) {
+					if(c==2) {
+						System.out.print(c+" ");
+					}
+					else {
+						for(int j=2;j<c;j++) {
+							if(c%j==0) {
+								count++;
+								break;
+							}
+						}
+						if(count==0) {
+							System.out.print(c+" ");
+						}
+					}
+				}
+			}		}
+	}
+OUTPUT:
+enter the size :
+10
+2 3 5 
+
