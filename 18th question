@@ -1,87 +1,91 @@
 package Com.Sample;
-import java.util.Scanner;
+import java.util.*;
 
-//---- Product Bean Class ----
+// ------- Product Bean Class -------
 class Product {
- int id;
- String name;
- double price;
+    private int id;
+    private String name;
+    private double price;
+
+    // Constructor
+    public Product(int id, String name, double price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
+    // Getters
+    public int getId() { return id; }
+    public String getName() { return name; }
+    public double getPrice() { return price; }
+
+    // toString() for printing product details
+    public String toString() {
+        return "ID: " + id + ", Name: " + name + ", Price: " + price;
+    }
+
+    // HashSet needs equals() and hashCode() to avoid duplicates
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Product)) return false;
+        Product p = (Product) o;
+        return id == p.id;
+    }
+
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
 
-//---- Client Class ----
+// ------- Client Class (Seller + Customer) -------
 public class Commerce {
- public static void main(String[] args) {
-     Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
 
-     System.out.print("Enter number of products to add: ");
-     int n = sc.nextInt();
+        // Seller adds products to HashSet
+        HashSet<Product> products = new HashSet<>();
+        products.add(new Product(1, "Laptop", 55000));
+        products.add(new Product(2, "Headphones", 2000));
+        products.add(new Product(3, "Smartphone", 30000));
 
-     Product[] products = new Product[n];
+        System.out.println("Available Products:");
+        for (Product p : products) {
+            System.out.println(p);
+        }
 
-     // Seller adds products
-     for (int i = 0; i < n; i++) {
-         products[i] = new Product();
-         System.out.println("\nEnter details for product " + (i + 1));
-         System.out.print("ID: ");
-         products[i].id = sc.nextInt();
-         System.out.print("Name: ");
-         products[i].name = sc.next();
-         System.out.print("Price: ");
-         products[i].price = sc.nextDouble();
-     }
+        // Customer places an order
+        System.out.print("\nEnter product IDs to order (comma separated): ");
+        String[] ids = sc.nextLine().split(",");
 
-     // Display all products
-     System.out.println("\nAvailable Products:");
-     for (Product p : products) {
-         System.out.println("ID: " + p.id + ", Name: " + p.name + ", Price: " + p.price);
-     }
+        double total = 0;
+        System.out.println("\nOrdered Products:");
+        for (String idStr : ids) {
+            int id = Integer.parseInt(idStr.trim());
+            for (Product p : products) {
+                if (p.getId() == id) {
+                    System.out.println(p);
+                    total += p.getPrice();
+                }
+            }
+        }
 
-     // Customer order
-     System.out.print("\nEnter how many products you want to order: ");
-     int count = sc.nextInt();
-     double total = 0;
-
-     for (int i = 0; i < count; i++) {
-         System.out.print("Enter product ID to order: ");
-         int orderId = sc.nextInt();
-
-         // find and display product
-         for (Product p : products) {
-             if (p.id == orderId) {
-                 System.out.println("Ordered: " + p.name + " | Price: " + p.price);
-                 total += p.price;
-             }
-         }
-     }
-
-     System.out.println("\nTotal Price = " + total);
-     sc.close();
- }
+        System.out.println("\nTotal Price = " + total);
+        sc.close();
+    }
 
 
- OUTOUT:
- Enter number of products to add: 2
-
-Enter details for product 1
-ID: 24
-Name: laptop
-Price: 40000
-
-Enter details for product 2
-ID: 25
-Name: phone
-Price: 50000
-
+OUTPUT:
 Available Products:
-ID: 24, Name: laptop, Price: 40000.0
-ID: 25, Name: phone, Price: 50000.0
+ID: 1, Name: Laptop, Price: 55000.0
+ID: 2, Name: Headphones, Price: 2000.0
+ID: 3, Name: Smartphone, Price: 30000.0
 
-Enter how many products you want to order: 1
-Enter product ID to order: 24
-Ordered: laptop | Price: 40000.0
+Enter product IDs to order (comma separated): 1,2
 
-Total Price = 40000.0
+Ordered Products:
+ID: 1, Name: Laptop, Price: 55000.0
+ID: 2, Name: Headphones, Price: 2000.0
 
+Total Price = 57000.0
 
- 
 }
