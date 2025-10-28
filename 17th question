@@ -1,0 +1,153 @@
+import java.util.Random;
+
+class SharedData {
+    int number;
+    boolean isEven;
+    boolean running = true; // flag to control loop
+}
+
+class NumberGenerator extends Thread {
+    Random rand = new Random();
+    SharedData data;
+
+    NumberGenerator(SharedData data) {
+        this.data = data;
+    }
+
+    public void run() {
+        for (int i = 0; i < 10; i++) { // generate 10 numbers
+            synchronized (data) {
+                int num = rand.nextInt(100);
+                data.number = num;
+                System.out.println("\nGenerated number: " + num);
+                data.isEven = (num % 2 == 0);
+                data.notifyAll(); // notify waiting threads
+            }
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        synchronized (data) {
+            data.running = false;  // stop all threads
+            data.notifyAll();      // wake up threads to exit
+        }
+
+        System.out.println("\n--- Program stopped after 10 numbers ---");
+    }
+}
+
+class SquareThread extends Thread {
+    SharedData data;
+
+    SquareThread(SharedData data) {
+        this.data = data;
+    }
+
+    public void run() {
+        while (true) {
+            synchronized (data) {
+                while (data.running && !data.isEven) {
+                    try {
+                        data.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                if (!data.running) break;
+
+                System.out.println("Square of " + data.number + " = " + (data.number * data.number));
+                try {
+                    data.wait(); // wait for next number
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+}
+
+class CubeThread extends Thread {
+    SharedData data;
+
+    CubeThread(SharedData data) {
+        this.data = data;
+    }
+
+    public void run() {
+        while (true) {
+            synchronized (data) {
+                while (data.running && data.isEven) {
+                    try {
+                        data.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                if (!data.running) break;
+
+                System.out.println("Cube of " + data.number + " = " + (data.number * data.number * data.number));
+                try {
+                    data.wait(); // wait for next number
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+}
+
+public class MultiThreadDemo {
+    public static void main(String[] args) {
+        SharedData data = new SharedData();
+
+        NumberGenerator t1 = new NumberGenerator(data);
+        SquareThread t2 = new SquareThread(data);
+        CubeThread t3 = new CubeThread(data);
+
+        t1.start();
+        t2.start();
+        t3.start();
+    }
+}
+
+
+OUTPUT:
+
+Generated number: 16
+Square of 16 = 256
+
+Generated number: 66
+Square of 66 = 4356
+
+Generated number: 15
+Cube of 15 = 3375
+
+Generated number: 18
+Square of 18 = 324
+
+Generated number: 96
+Square of 96 = 9216
+
+Generated number: 54
+Square of 54 = 2916
+
+Generated number: 85
+Cube of 85 = 614125
+
+Generated number: 88
+Square of 88 = 7744
+
+Generated number: 19
+Cube of 19 = 6859
+
+Generated number: 59
+Cube of 59 = 205379
+
+--- Program stopped after 10 numbers ---
+
