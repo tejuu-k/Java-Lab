@@ -1,0 +1,87 @@
+package Com.Sample;
+import java.util.Scanner;
+
+//---- Product Bean Class ----
+class Product {
+ int id;
+ String name;
+ double price;
+}
+
+//---- Client Class ----
+public class Commerce {
+ public static void main(String[] args) {
+     Scanner sc = new Scanner(System.in);
+
+     System.out.print("Enter number of products to add: ");
+     int n = sc.nextInt();
+
+     Product[] products = new Product[n];
+
+     // Seller adds products
+     for (int i = 0; i < n; i++) {
+         products[i] = new Product();
+         System.out.println("\nEnter details for product " + (i + 1));
+         System.out.print("ID: ");
+         products[i].id = sc.nextInt();
+         System.out.print("Name: ");
+         products[i].name = sc.next();
+         System.out.print("Price: ");
+         products[i].price = sc.nextDouble();
+     }
+
+     // Display all products
+     System.out.println("\nAvailable Products:");
+     for (Product p : products) {
+         System.out.println("ID: " + p.id + ", Name: " + p.name + ", Price: " + p.price);
+     }
+
+     // Customer order
+     System.out.print("\nEnter how many products you want to order: ");
+     int count = sc.nextInt();
+     double total = 0;
+
+     for (int i = 0; i < count; i++) {
+         System.out.print("Enter product ID to order: ");
+         int orderId = sc.nextInt();
+
+         // find and display product
+         for (Product p : products) {
+             if (p.id == orderId) {
+                 System.out.println("Ordered: " + p.name + " | Price: " + p.price);
+                 total += p.price;
+             }
+         }
+     }
+
+     System.out.println("\nTotal Price = " + total);
+     sc.close();
+ }
+
+
+ OUTOUT:
+ Enter number of products to add: 2
+
+Enter details for product 1
+ID: 24
+Name: laptop
+Price: 40000
+
+Enter details for product 2
+ID: 25
+Name: phone
+Price: 50000
+
+Available Products:
+ID: 24, Name: laptop, Price: 40000.0
+ID: 25, Name: phone, Price: 50000.0
+
+Enter how many products you want to order: 1
+Enter product ID to order: 24
+Ordered: laptop | Price: 40000.0
+
+Total Price = 40000.0
+
+
+ 
+}
