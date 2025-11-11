@@ -1,0 +1,101 @@
+package Com.Sample;
+class SharedBuffer {
+    private int data;
+    private boolean hasData = false; // true if data is produced but not yet consumed
+
+    // Producer puts data
+    synchronized void produce(int value) {
+        while (hasData) { // Wait if data not yet consumed
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+        }
+        data = value;
+        hasData = true;
+        System.out.println("Producer produced: " + data);
+        notify(); // Notify consumer that data is ready
+    }
+
+    // Consumer takes data
+    synchronized int consume() {
+        while (!hasData) { // Wait if no data yet produced
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+        }
+        System.out.println("Consumer consumed: " + data);
+        hasData = false;
+        notify(); // Notify producer to produce next
+        return data;
+    }
+}
+
+// Producer Thread
+class Producer extends Thread {
+    SharedBuffer buffer;
+
+    Producer(SharedBuffer b) {
+        buffer = b;
+    }
+
+    public void run() {
+        for (int i = 1; i <= 5; i++) {
+            buffer.produce(i);
+            try {
+                Thread.sleep(500); // Simulate production time
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+        }
+    }
+}
+
+// Consumer Thread
+class Consumer extends Thread {
+    SharedBuffer buffer;
+
+    Consumer(SharedBuffer b) {
+        buffer = b;
+    }
+
+    public void run() {
+        for (int i = 1; i <= 5; i++) {
+            buffer.consume();
+            try {
+                Thread.sleep(800); // Simulate consumption time
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+        }
+    }
+}
+
+// Main Class
+public class ProducerConsumerDemo {
+    public static void main(String[] args) {
+        SharedBuffer buffer = new SharedBuffer();
+        Producer p = new Producer(buffer);
+        Consumer c = new Consumer(buffer);
+
+        p.start();
+        c.start();
+    }
+}
+
+
+output:
+Producer produced: 1
+Consumer consumed: 1
+Producer produced: 2
+Consumer consumed: 2
+Producer produced: 3
+Consumer consumed: 3
+Producer produced: 4
+Consumer consumed: 4
+Producer produced: 5
+Consumer consumed: 5
+
