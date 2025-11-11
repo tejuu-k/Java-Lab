@@ -1,0 +1,62 @@
+import java.io.*;
+import java.util.*;
+
+public class PhoneBook {
+    public static void main(String[] args) {
+        Hashtable<String, String> nameToPhone = new Hashtable<>();
+        Hashtable<String, String> phoneToName = new Hashtable<>();
+
+        try {
+            File file = new File("contacts.txt");
+
+            // ✅ If file doesn't exist, create it with sample data
+            if (!file.exists()) {
+                PrintWriter pw = new PrintWriter(file);
+                pw.println("Alice\t9876543210");
+                pw.println("Bob\t9123456780");
+                pw.println("Charlie\t9090909090");
+                pw.close();
+                System.out.println("contacts.txt file created with sample data.\n");
+            }
+
+            // Now read the file
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split("\t");
+                if (parts.length == 2) {
+                    String name = parts[0].trim();
+                    String phone = parts[1].trim();
+                    nameToPhone.put(name, phone);
+                    phoneToName.put(phone, name);
+                }
+            }
+            br.close();
+
+            // User input
+            Scanner sc = new Scanner(System.in);
+            System.out.print("Enter a name or phone number: ");
+            String input = sc.nextLine().trim();
+
+            // Lookup logic
+            if (nameToPhone.containsKey(input)) {
+                System.out.println("Phone number: " + nameToPhone.get(input));
+            } else if (phoneToName.containsKey(input)) {
+                System.out.println("Name: " + phoneToName.get(input));
+            } else {
+                System.out.println("No match found!");
+            }
+
+            sc.close();
+
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
+    }
+}
+
+
+output:
+Enter a name or phone number: Alice
+Phone number: 9876543210
