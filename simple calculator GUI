@@ -1,0 +1,73 @@
+package Com.Sample;
+import java.awt.*;
+import java.awt.event.*;
+public class SimpleCalculator {
+    TextField textField;
+    double num1, num2, result;
+    char operator;
+    public SimpleCalculator() {
+        Frame frame = new Frame("Simple Calculator");
+        frame.setSize(300, 400);
+        frame.setLayout(new BorderLayout());
+        textField = new TextField();
+        textField.setEditable(false);
+        textField.setFont(new Font("Arial", Font.BOLD, 24));
+        frame.add(textField, BorderLayout.NORTH);
+        Panel panel = new Panel();
+        panel.setLayout(new GridLayout(4, 4, 10, 10));
+        String[] buttons = {
+            "7", "8", "9", "+",
+            "4", "5", "6", "-",
+            "1", "2", "3", "*",
+            "0", "%", "C", "="    };
+        for (String label : buttons) {
+            Button btn = new Button(label);
+            btn.setFont(new Font("Arial", Font.BOLD, 18));
+            btn.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    String cmd = e.getActionCommand();
+                    try {
+                        if (cmd.charAt(0) >= '0' && cmd.charAt(0) <= '9') {
+                            textField.setText(textField.getText() + cmd);
+                        } else if (cmd.equals("C")) {
+                            textField.setText("");
+                            num1 = num2 = result = 0;
+                        } else if (cmd.equals("=")) {
+                            num2 = Double.parseDouble(textField.getText());
+                            switch (operator) {
+                                case '+': result = num1 + num2; break;
+                                case '-': result = num1 - num2; break;
+                                case '*': result = num1 * num2; break;
+                                case '%':
+                                    if (num2 == 0) throw new ArithmeticException("Divide by zero");
+                                    result = num1 % num2;
+                                    break;
+                            }
+                            textField.setText(String.valueOf(result));
+                        } else {
+                            num1 = Double.parseDouble(textField.getText());
+                            operator = cmd.charAt(0);
+                            textField.setText("");
+                        }
+                    } catch (ArithmeticException x) {
+                        textField.setText("Error");
+                    } catch (Exception ex) {
+                        textField.setText("Invalid");
+                    }
+                }
+            });
+            panel.add(btn);
+        }        frame.add(panel, BorderLayout.CENTER);
+        frame.setVisible(true);
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                frame.dispose();
+            }
+        });
+    }
+        
+    public static void main(String[] args) {
+        new SimpleCalculator();
+    }
+
+}
